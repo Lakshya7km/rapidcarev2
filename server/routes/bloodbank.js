@@ -9,6 +9,7 @@ router.get('/', async (req, res) => {
     } catch (e) { res.status(500).json({ message: e.message }); }
 });
 
+<<<<<<< HEAD
 // Upsert by blood type (used by reception BloodBankSection)
 router.post('/upsert', async (req, res) => {
     try {
@@ -16,6 +17,15 @@ router.post('/upsert', async (req, res) => {
         let b = await BloodBank.findOne({ hospitalId, bloodType });
         if (b) { b.units = units; await b.save(); }
         else { b = await new BloodBank({ hospitalId, bloodType, units }).save(); }
+=======
+// Upsert by blood group (used by reception BloodBankSection)
+router.post('/upsert', async (req, res) => {
+    try {
+        const { hospitalId, bloodGroup, units } = req.body;
+        let b = await BloodBank.findOne({ hospitalId, bloodGroup });
+        if (b) { b.units = units; await b.save(); }
+        else { b = await new BloodBank({ hospitalId, bloodGroup, units }).save(); }
+>>>>>>> 249ac1ed861c4486288be8b5560101ae79ca1d7c
         res.json(b);
     } catch (e) { res.status(500).json({ message: e.message }); }
 });
